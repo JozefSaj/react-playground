@@ -1,8 +1,9 @@
+import { useState } from "react";
+
 function ListGroup() {
   let items = ["New York", "San francisco", "Tokyo", "London", "Paris"];
   //ctrl+d to mark other occurencies of same word
-
-  const handleEvent = (event: React.MouseEvent) => console.log(event);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
     <>
@@ -13,7 +14,18 @@ function ListGroup() {
       {/*h1 and ul are two different elements so we have to wrap to so it can be compiled to javascript*/}
       <ul className="list-group">
         {items.map((item, index) => (
-          <li className="list-group-item" key={item} onClick={handleEvent}>
+          <li
+            className={
+              selectedIndex === index
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            key={item}
+            onClick={() => {
+              console.log(index);
+              setSelectedIndex(index);
+            }}
+          >
             {item}
           </li>
         ))}
