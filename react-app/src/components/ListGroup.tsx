@@ -1,7 +1,8 @@
 function ListGroup() {
-  var items = ["New York", "San francisco", "Tokyo", "London", "Paris"];
-  items = [];
+  let items = ["New York", "San francisco", "Tokyo", "London", "Paris"];
   //ctrl+d to mark other occurencies of same word
+
+  const handleEvent = (event: React.MouseEvent) => console.log(event);
 
   return (
     <>
@@ -11,8 +12,10 @@ function ListGroup() {
       {/*javascript will return the latest true value*/}
       {/*h1 and ul are two different elements so we have to wrap to so it can be compiled to javascript*/}
       <ul className="list-group">
-        {items.map((item) => (
-          <li key={item}>{item}</li>
+        {items.map((item, index) => (
+          <li className="list-group-item" key={item} onClick={handleEvent}>
+            {item}
+          </li>
         ))}
         {/*need specific key for each item, to keep track*/}
         {/* have to wrap it to{} because JSX markup, because we can use there only html elements or react components*/}
