@@ -3,9 +3,10 @@ import { useState } from "react";
 interface Props {
   items: string[];
   heading: string;
+  onSelectItem: (item: string) => void;
 }
 
-function ListGroup({ items, heading }: Props) {
+function ListGroup({ items, heading, onSelectItem }: Props) {
   //ctrl+d to mark other occurencies of same word
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
@@ -26,7 +27,7 @@ function ListGroup({ items, heading }: Props) {
             }
             key={item}
             onClick={() => {
-              console.log(index);
+              onSelectItem(item);
               setSelectedIndex(index);
             }}
           >
