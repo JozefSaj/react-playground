@@ -6,6 +6,7 @@ interface Props {
   onSelectItem: (item: string) => void;
   //we should treat Props as immutable objects, it not so, it's anti-pattern
   //Props are arguments of functions, where state is like a local variable for component
+  //anytime Props or State changes, it re-render the component
 }
 
 function ListGroup({ items, heading, onSelectItem }: Props) {
