@@ -1,14 +1,18 @@
 import { useState } from "react";
 
-function ListGroup() {
-  let items = ["New York", "San francisco", "Tokyo", "London", "Paris"];
+interface Props {
+  items: string[];
+  heading: string;
+}
+
+function ListGroup({ items, heading }: Props) {
   //ctrl+d to mark other occurencies of same word
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
     <>
       {/*telling react to wrap all of its children, so we dont need to use <div><div/> so we dont have another element*/}
-      <h1>List</h1>
+      <h1>{heading}</h1>
       {items.length === 0 && <p>No item found</p>}{" "}
       {/*javascript will return the latest true value*/}
       {/*h1 and ul are two different elements so we have to wrap to so it can be compiled to javascript*/}
