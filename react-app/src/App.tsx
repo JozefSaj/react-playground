@@ -7,8 +7,7 @@ import ListGroup from "./components/ListGroup"; //it will look for file index
 function App() {
   return (
     <div>
-      <FaCalendarTimes color="red"></FaCalendarTimes>
-      <ListGroup items={['New York', 'Lost Angeles', 'San Francisco']} heading='Miami' onSelectItem={(item: string) => console.log(item)}></ListGroup>
+     <Button onClickEvent={() => {}} >My Button</Button>
     </div>
   );
 }
