@@ -1,6 +1,19 @@
 import { useState } from "react";
-import styles from "./ListGroup.module.css";
+import styled from "styled-components";
 
+const List = styled.ul`
+list-style: none;
+padding: 0;
+`;
+interface ListItemProps{
+  active: boolean;
+}
+
+
+const ListItem = styled.li<ListItemProps>`
+background: ${props => props.active ? 'blue' : 'none'};
+padding: 5px 0;
+`
 interface Props {
   items: string[];
   heading: string;
@@ -12,7 +25,7 @@ interface Props {
 
 function ListGroup({ items, heading, onSelectItem }: Props) {
   //ctrl+d to mark other occurencies of same word
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
     <>
@@ -21,14 +34,10 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
       {items.length === 0 && <p>No item found</p>}{" "}
       {/*javascript will return the latest true value*/}
       {/*h1 and ul are two different elements so we have to wrap to so it can be compiled to javascript*/}
-      <ul className={[styles.ListGroup, styles.container].join(' ')}>
+      <List>
         {items.map((item, index) => (
-          <li
-            className={
-              selectedIndex === index
-                ? "list-group-item active"
-                : "list-group-item"
-            }
+          <ListItem
+            active={index == selectedIndex}
             key={item}
             onClick={() => {
               onSelectItem(item);
@@ -36,11 +45,11 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
             }}
           >
             {item}
-          </li>
+          </ListItem>
         ))}
         {/*need specific key for each item, to keep track*/}
         {/* have to wrap it to{} because JSX markup, because we can use there only html elements or react components*/}
-      </ul>
+      </List>
     </>
   );
 }
