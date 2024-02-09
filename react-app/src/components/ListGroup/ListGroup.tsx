@@ -34,7 +34,7 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
       {items.length === 0 && <p>No item found</p>}{" "}
       {/*javascript will return the latest true value*/}
       {/*h1 and ul are two different elements so we have to wrap to so it can be compiled to javascript*/}
-      <List>
+      <List style={{backgroundColor: 'yellow'}}>
         {items.map((item, index) => (
           <ListItem
             active={index == selectedIndex}
