@@ -8,7 +8,7 @@ interface Props {
 
 const Button = ({ children, onClickEvent, color = "primary" }: Props) => {
   return (
-    <button className={"btn btn-" + color} onClick={() => onClickEvent}>
+    <button className={"btn btn-" + color} onClick={onClickEvent}>
       children
     </button>
   );
