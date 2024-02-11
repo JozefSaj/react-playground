@@ -9,15 +9,18 @@ import Navbar from "./components/NavBar";
 import Cart from "./components/Cart";
 
 function App() {
-  const [cartItems, setCartItems] = useState(['Product 1', 'Product 2']);
+  const [pizza, setPizza] = useState({
+    name: 'Spicy Pepperoni',
+    toppings: ['Mushroom']
+  });
 
   const handleClick = () =>{
+    setPizza({...pizza, toppings: [...pizza.toppings, 'Cheese']});
   };
 
   return (
     <div>
-      <Navbar cartItemsCount={cartItems.length}></Navbar>
-      <Cart cartItems={cartItems} onClear={() => setCartItems([])}></Cart>
+  
     </div>
   );
 }
