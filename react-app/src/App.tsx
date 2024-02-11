@@ -7,23 +7,19 @@ import Like from "./components/Like";
 import produce from "immer";
 import Navbar from "./components/NavBar";
 import Cart from "./components/Cart";
+import ExpandableText from "./components/ExpandableText";
 
 function App() {
-  const [cart, setCart] = useState({
-   discount: .1,
-   items: [
-    {id: 1, title: 'Product 1', quantity: 1},
-    {id: 2, title: 'Product 2', quantity: 1},
-   ]
-  });
 
   const handleClick = () =>{
-    setCart({...cart, items: cart.items.map(item => item.id === 1 ? {...item, quantity: 2} : item)});
+
   };
 
   return (
     <div>
-  
+      <ExpandableText>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam non enim maxime repudiandae nemo neque nulla voluptate tenetur quia, doloribus porro adipisci similique tempore voluptatum. Aspernatur qui animi nemo, consectetur obcaecati impedit quas rem ullam. Ex laboriosam, qui harum, ipsa laudantium, maxime reprehenderit est quaerat modi officia corrupti! Ratione aliquam incidunt quidem excepturi aut atque harum magnam cum numquam eius natus nemo iure obcaecati id exercitationem quisquam voluptate, delectus necessitatibus, optio a rerum ullam iusto. Dicta magnam tenetur placeat non molestiae fugit ad, quisquam itaque similique libero facere recusandae tempore beatae maxime ducimus commodi nesciunt, voluptates sint aut blanditiis dolorum.
+      </ExpandableText>
     </div>
   );
 }
