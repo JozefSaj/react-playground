@@ -9,15 +9,16 @@ import Navbar from "./components/NavBar";
 import Cart from "./components/Cart";
 
 function App() {
-  const [game, setGame] = useState({
-    id: 1,
-    player:{
-      name: "John",
-    }
+  const [cart, setCart] = useState({
+   discount: .1,
+   items: [
+    {id: 1, title: 'Product 1', quantity: 1},
+    {id: 2, title: 'Product 2', quantity: 1},
+   ]
   });
 
   const handleClick = () =>{
-    setGame({...game, player: {...game.player, name: 'Bob'}});
+    setCart({...cart, items: cart.items.map(item => item.id === 1 ? {...item, quantity: 2} : item)});
   };
 
   return (
