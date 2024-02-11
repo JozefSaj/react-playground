@@ -6,14 +6,21 @@ import ListGroup from "./components/ListGroup"; //it will look for file index
 import Like from "./components/Like";
 
 function App() {
-  const [drink, setDrink] = useState({
-    title: "Americano",
-    price: 5,
+  const [customer, setCustomer] = useState({
+    name: "Jhon",
+    address: {
+      city: "San Francisco",
+      zipCode: 94111
+    }
   });
+
+  const handleClick = () =>{
+    setCustomer({...customer, address: {...customer.address, zipCode:94112}})
+  };
+
   return (
     <div>
-      {drink.price}
-      <button onClick={() => setDrink({...drink, price:6})}> </button>
+      <button> </button>
     </div>
   );
 }
