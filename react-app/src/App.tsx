@@ -29,6 +29,7 @@ function App() {
         setError(error.message);
       });
     // .finally(() => setLoading(false)); it does not work with strict mode on
+    // network tab in inspect, change no throttling to slow 3g
 
     return () => controller.abort();
   }, []);
