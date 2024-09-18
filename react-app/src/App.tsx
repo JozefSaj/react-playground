@@ -11,19 +11,19 @@ function App() {
   const [error, setError] = useState("");
   const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await axios.get<User[]>(
-          "https://jsonplaceholder.typicode.com/users"
-        );
-        setUsers(res.data);
-      } catch (error) {
-        setError((error as AxiosError).message);
-      }
-    };
-    fetchUsers();
-    // .then((res) => setUsers(res.data))
-    // .catch((error) => setError(error.message));
+    const controller = new AbortController();
+
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+        signal: controller.signal,
+      })
+      .then((res) => setUsers(res.data))
+      .catch((error) => {
+        if (error instanceof AxiosError) return;
+        setError(error.message);
+      });
+
+    return () => controller.abort();
   }, []);
 
   return (
