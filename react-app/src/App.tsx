@@ -1,10 +1,6 @@
 import apiClient, { CanceledError } from "./services/api-client";
 import React, { useEffect, useState } from "react";
-
-interface User {
-  id: number;
-  name: string;
-}
+import userService, { User } from "./services/user-service";
 
 function App() {
   const [error, setError] = useState("");
@@ -12,13 +8,10 @@ function App() {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    const controller = new AbortController();
     setLoading(true);
 
-    apiClient
-      .get<User[]>("/users", {
-        signal: controller.signal,
-      })
+    const { request, cancel } = userService.getAllUsers();
+    request
       .then((res) => {
         setUsers(res.data);
         setLoading(false);
@@ -31,12 +24,12 @@ function App() {
     // .finally(() => setLoading(false)); it does not work with strict mode on
     // network tab in inspect, change no throttling to slow 3g
 
-    return () => controller.abort();
+    return () => cancel();
   }, []);
 
   const deleteUser = (user: User) => {
     setUsers(users.filter((u) => u.id !== user.id));
-    apiClient.delete(`users/${user.id}`).catch((error) => {
+    userService.deleteUser(user).catch((error) => {
       setError(error.message);
       setUsers([...users, user]);
     });
@@ -46,8 +39,8 @@ function App() {
     const originalUsers = [...users];
     setUsers([...users, newUser]);
 
-    apiClient
-      .post("users", newUser)
+    userService
+      .createUser(newUser)
       .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
       .catch((error) => {
         setError(error.message);
@@ -60,7 +53,7 @@ function App() {
     const updatedUser = { ...user, name: user.name + "!" };
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    apiClient.patch(`users/${user.id}`, updatedUser).catch((error) => {
+    userService.updateUser(user).catch((error) => {
       setError(error.message);
       setUsers(originalUsers);
     });
