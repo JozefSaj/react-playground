@@ -11,6 +11,7 @@ function App() {
   const [error, setError] = useState("");
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setLoading] = useState(false);
+
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
@@ -43,10 +44,26 @@ function App() {
         setUsers([...users, user]);
       });
   };
+  const addUser = () => {
+    const newUser = { id: 0, name: "New User" };
+    const originalUsers = [...users];
+    setUsers([...users, newUser]);
+
+    axios
+      .post("https://jsonplaceholder.typicode.com/users", newUser)
+      .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
+      .catch((error) => {
+        setError(error.message);
+        setUsers(originalUsers);
+      });
+  };
   return (
     <>
       {error && <p className="text-danger">{error}</p>}
       {isLoading && <div className="spinner-border"></div>}
+      <button className="btn btn-primary mb-3" onClick={addUser}>
+        Add
+      </button>
       <ul className="list-group">
         {users.map((user) => (
           <li
