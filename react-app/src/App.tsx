@@ -1,31 +1,8 @@
-import { CanceledError } from "./services/api-client";
-import { useEffect, useState } from "react";
+import useUsers from "./hooks/useUsers";
 import userService, { User } from "./services/user-service";
 
 function App() {
-  const [error, setError] = useState("");
-  const [users, setUsers] = useState<User[]>([]);
-  const [isLoading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-
-    const { request, cancel } = userService.getAll<User>();
-    request
-      .then((res) => {
-        setUsers(res.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        if (error instanceof CanceledError) return;
-        setLoading(false);
-        setError(error.message);
-      });
-    // .finally(() => setLoading(false)); it does not work with strict mode on
-    // network tab in inspect, change no throttling to slow 3g
-
-    return () => cancel();
-  }, []);
+  const { users, error, isLoading, setUsers, setError } = useUsers();
 
   const deleteUser = (user: User) => {
     setUsers(users.filter((u) => u.id !== user.id));
